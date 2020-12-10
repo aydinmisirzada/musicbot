@@ -9,8 +9,8 @@ from telegram.ext.callbackcontext import CallbackContext
 from telegram.bot import Bot
 from telegram.parsemode import ParseMode
 
-# API_TOKEN = os.environ['TELEGRAM_TOKEN']
-API_TOKEN = "1402810406:AAEPmymWoRbu2cdofGtMnpetekRpV-oz-n8"
+API_TOKEN = os.environ['TELEGRAM_TOKEN']
+# API_TOKEN = "1402810406:AAEPmymWoRbu2cdofGtMnpetekRpV-oz-n8"
 
 updater = Updater(API_TOKEN,use_context=True)
 
@@ -31,7 +31,7 @@ def music(update: Update, context: CallbackContext):
 
     music_src = context.args[0]
     yt = YouTube(music_src).streams.filter(only_audio=True).first().download(output_path="../tmp")
-    print(yt)
+    print("Hello",yt)
     context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
 
 
