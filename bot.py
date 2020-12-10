@@ -31,7 +31,7 @@ def music(update: Update, context: CallbackContext):
     music_src = context.args[0]
     with open('file.txt','w') as f:
         f.write('hello')
-    yt = YouTube(music_src).streams.filter(only_audio=True).first().download()
+    yt = YouTube(music_src).streams.filter(only_audio=True).first().download(output_path=".")
     context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
 
 
