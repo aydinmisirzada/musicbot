@@ -31,15 +31,15 @@ def music(update: Update, context: CallbackContext):
 
     music_src = context.args[0]
     yt = YouTube(music_src).streams.filter(only_audio=True).first()
-    print(str(yt))
+    msg = "Sorry, the audio can't be downloaded"
+    if yt is None:
+        context.bot.send_message(
+                    chat_id=update.effective_chat.id,
+                    text=
+                    msg,
+                    parse_mode=ParseMode.HTML,
+        )
     yt = yt.download()
-    msg = "Hello"
-    context.bot.send_message(
-                chat_id=update.effective_chat.id,
-                text=
-                msg,
-                parse_mode=ParseMode.HTML,
-    )
     context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
 
 
