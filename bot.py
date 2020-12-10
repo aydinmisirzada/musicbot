@@ -10,7 +10,7 @@ from telegram.bot import Bot
 from telegram.parsemode import ParseMode
 
 API_TOKEN = os.environ['TELEGRAM_TOKEN']
-# API_TOKEN = "1402810406:AAEPmymWoRbu2cdofGtMnpetekRpV-oz-n8"
+
 
 updater = Updater(API_TOKEN,use_context=True)
 
@@ -46,4 +46,3 @@ def music(update: Update, context: CallbackContext):
 dispatcher.add_handler(CommandHandler("music", music))
 
 updater.start_polling()
-# updater.idle()
