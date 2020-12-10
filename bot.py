@@ -22,19 +22,19 @@ dispatcher = updater.dispatcher
 def music(update: Update, context: CallbackContext):
 
     if len(context.args) == 0:
-        msg = 'Send a message in format "/music _link_ _to_ _youtube_"'
+        msg = 'Send a message in format "/music link_to_youtube"'
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
                     text=
                     msg,
                     reply_to_message_id=update.effective_message.message_id,
-                    parse_mode="Markdown",
+                    parse_mode=ParseMode.HTML,
         )
         return
 
     music_src = context.args[0]
-    yt = YouTube(music_src).streams.filter(only_audio=True).first().download()
-    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
+    # yt = YouTube(music_src).streams.filter(only_audio=True).first().download()
+    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(YouTube(music_src).streams.filter(only_audio=True).first().download(), 'rb'))
 
 
 dispatcher.add_handler(CommandHandler("music", music))
