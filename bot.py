@@ -30,7 +30,7 @@ def music(update: Update, context: CallbackContext):
         return
 
     music_src = context.args[0]
-    yt = YouTube(music_src).streams.filter(only_audio=True).first()
+    yt = YouTube(music_src).streams
     # yt = yt.download(output_path="../tmp")
     # print("Hello",yt)
     msg = yt
