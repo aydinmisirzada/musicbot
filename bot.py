@@ -12,9 +12,6 @@ from telegram.parsemode import ParseMode
 
 API_TOKEN = os.environ['TELEGRAM_TOKEN']
 
-
-
-
 updater = Updater(API_TOKEN,use_context=True)
 
 dispatcher = updater.dispatcher
@@ -33,8 +30,14 @@ def music(update: Update, context: CallbackContext):
         return
 
     music_src = context.args[0]
-    # yt = YouTube(music_src).streams.filter(only_audio=True).first().download()
-    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(YouTube(music_src).streams.filter(only_audio=True).first().download(), 'rb'))
+    yt = YouTube(music_src).streams.filter(only_audio=True).first().download()
+    context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=
+                print(yt),
+                parse_mode=ParseMode.HTML,
+    )
+    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
 
 
 dispatcher.add_handler(CommandHandler("music", music))
