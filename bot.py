@@ -33,7 +33,7 @@ def music(update: Update, context: CallbackContext):
     yt = YouTube(music_src).streams.filter(only_audio=True).first()
     # yt = yt.download(output_path="../tmp")
     # print("Hello",yt)
-    msg = music_src
+    msg = yt
     context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text=
