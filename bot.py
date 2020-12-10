@@ -30,8 +30,8 @@ def music(update: Update, context: CallbackContext):
         return
 
     music_src = context.args[0]
-    print('HEllo')
     yt = YouTube(music_src).streams.filter(only_audio=True).first()
+    print(str(yt))
     yt = yt.download()
     msg = "Hello"
     context.bot.send_message(
