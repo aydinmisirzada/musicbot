@@ -8,6 +8,7 @@ from telegram.update import Update
 from telegram.ext.callbackcontext import CallbackContext
 from telegram.bot import Bot
 from telegram.parsemode import ParseMode
+import re
 
 API_TOKEN = os.environ['TELEGRAM_TOKEN']
 
@@ -30,19 +31,38 @@ def music(update: Update, context: CallbackContext):
         return
 
     music_src = context.args[0]
-    yt = YouTube(music_src).streams.filter(only_audio=True).first()
+    yt = YouTube(music_src)
+    music = yt.streams.filter(only_audio=True).first()
     msg = "Sorry, the audio can't be downloaded"
-    if yt is None:
+    if music is None:
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
                     text=
                     msg,
                     parse_mode=ParseMode.HTML,
         )
-    yt = yt.download()
-    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(yt, 'rb'))
+    music_title = yt.title
+    music = music.download()
+    pattern = "(.*) -(.*)"
+    matchObject = re.match(pattern,music_title)
+    performer = yt.author or "Unknown Author"
+    if matchObject is not None:
+        performer =  matchObject.group(1)
+        music_title = matchObject.group(2).strip() or music_title
+    context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(music, 'rb'),
+                        performer=performer,title=music_title)
 
 
 dispatcher.add_handler(CommandHandler("music", music))
 
 updater.start_polling()
+
+
+
+
+
+
+
+
+
+#
