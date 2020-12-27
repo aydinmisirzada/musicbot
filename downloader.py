@@ -18,7 +18,7 @@ class Downloader:
         self.extract_author_n_title()
 
     def extract_author_n_title(self):
-        pattern = "(.*)-(.*)"
+        pattern = "(.*)[-–—](.*)"
         matchObject = re.match(pattern,self.title)
         if matchObject is not None:
             self.author =  matchObject.group(1).rstrip() or self.author
