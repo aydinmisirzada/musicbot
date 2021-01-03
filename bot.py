@@ -36,7 +36,8 @@ def music(update: Update, context: CallbackContext):
         context.bot.send_audio(chat_id=update.effective_chat.id,
                                 audio=open(dl.song, 'rb'),
                                 performer=dl.author,
-                                title=dl.title)
+                                title=dl.title,
+                                caption="@invisiblemusicbot")
     except Exception as e:
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
@@ -53,7 +54,8 @@ def send_msg(update: Update, context: CallbackContext):
         context.bot.send_audio(chat_id=update.effective_chat.id,
                                 audio=open(dl.song, 'rb'),
                                 performer=dl.author,
-                                title=dl.title)
+                                title=dl.title,
+                                caption="@invisiblemusicbot")
     except Exception as e:
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
