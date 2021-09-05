@@ -60,7 +60,7 @@ def send_msg(update: Update, context: CallbackContext):
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
                     text=
-                    str(e),
+                    "Sorry, an error has occured. Please, report the error to @INV1SBLE",
                     parse_mode=ParseMode.HTML,
         )
 
