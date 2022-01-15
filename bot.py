@@ -20,11 +20,10 @@ dispatcher = updater.dispatcher
 def music(update: Update, context: CallbackContext):
 
     if len(context.args) == 0:
-        msg = 'Send a message in format "/music link_to_youtube"'
+        msg = 'Send a message in format "/music https://youtu.be/iik25wqIuFo"'
         context.bot.send_message(
                     chat_id=update.effective_chat.id,
-                    text=
-                    msg,
+                    text=msg,
                     reply_to_message_id=update.effective_message.message_id,
                     parse_mode=ParseMode.HTML,
         )
@@ -57,12 +56,20 @@ def send_msg(update: Update, context: CallbackContext):
                                 title=dl.title,
                                 caption="@invisiblemusicbot")
     except Exception as e:
-        context.bot.send_message(
+        if str(e) == "Invalid YouTube link":
+            context.bot.send_message(
                     chat_id=update.effective_chat.id,
                     text=
-                    "Sorry, an error has occured. Please, report the error to @INV1SBLE",
+                    "Please, send a valid link to YouTube video",
                     parse_mode=ParseMode.HTML,
-        )
+        ) 
+        else:
+            context.bot.send_message(
+                        chat_id=update.effective_chat.id,
+                        text=
+                        "Sorry, an error has occured. Please, report the error to @INV1SBLE",
+                        parse_mode=ParseMode.HTML,
+            )
 
 dispatcher.add_handler(CommandHandler("music", music))
 dispatcher.add_handler(MessageHandler(Filters.private,send_msg))

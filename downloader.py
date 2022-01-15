@@ -27,7 +27,7 @@ class Downloader:
             self.title = matchObject.group(2).strip() or self.title
 
     def check_if_youtube(self,str):
-        pattern = "https?://youtu(be\.com|\.be)/\w+"
+        pattern = "https?://(m\.)?youtu(be\.com|\.be)/\w+"
         matchObject = re.match(pattern,str)
         if matchObject is None:
             raise Exception("Invalid YouTube link")
