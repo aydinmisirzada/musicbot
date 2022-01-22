@@ -1,2 +1,2 @@
 python-telegram-bot==12.4.2
-git+https://github.com/pytube/pytube
+git+https://github.com/ehsanbehdad/Pytube
