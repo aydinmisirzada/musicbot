@@ -72,7 +72,7 @@ def send_msg(update: Update, context: CallbackContext):
             )
 
 dispatcher.add_handler(CommandHandler("music", music))
-dispatcher.add_handler(MessageHandler(Filters.private,send_msg))
+dispatcher.add_handler(MessageHandler(Filters.chat_type.private,send_msg))
 
 updater.start_polling()
 
