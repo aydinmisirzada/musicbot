@@ -12,6 +12,7 @@ from telegram.parsemode import ParseMode
 from downloader import Downloader
 
 API_TOKEN = os.environ['TELEGRAM_TOKEN']
+OWNER_CHAT_ID = os.environ['OWNER_CHAT_ID']
 
 updater = Updater(API_TOKEN,use_context=True)
 
@@ -25,6 +26,7 @@ def music(update: Update, context: CallbackContext):
                     chat_id=update.effective_chat.id,
                     text=msg,
                     reply_to_message_id=update.effective_message.message_id,
+                    disable_web_page_preview=True,
                     parse_mode=ParseMode.HTML,
         )
         return
@@ -45,6 +47,13 @@ def music(update: Update, context: CallbackContext):
                     parse_mode=ParseMode.HTML,
         )
 
+def notify_owner(update: Update, context: CallbackContext, err: str):
+    msg = f'User @{update.effective_user.username} has tried downloading music, but got an error:\n\n{err}'
+    context.bot.send_message(
+            chat_id=OWNER_CHAT_ID,
+            text=msg,
+            parse_mode=ParseMode.HTML,
+    )
 
 def send_msg(update: Update, context: CallbackContext):
     music_src = update.effective_message.text
@@ -56,6 +65,7 @@ def send_msg(update: Update, context: CallbackContext):
                                 title=dl.title,
                                 caption="@invisiblemusicbot")
     except Exception as e:
+        notify_owner(update, context, str(e))
         if str(e) == "Invalid YouTube link":
             context.bot.send_message(
                     chat_id=update.effective_chat.id,
@@ -76,14 +86,3 @@ dispatcher.add_handler(MessageHandler(Filters.chat_type.private,send_msg))
 
 updater.start_polling()
 
-
-
-
-
-
-
-
-
-
-
-#
