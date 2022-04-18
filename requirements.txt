@@ -1,2 +1,2 @@
 python-telegram-bot
-git+https://github.com/pytube/Pytube
+git+https://github.com/kinshuk-h/pytube
