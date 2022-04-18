@@ -65,7 +65,6 @@ def send_msg(update: Update, context: CallbackContext):
                                 title=dl.title,
                                 caption="@invisiblemusicbot")
     except Exception as e:
-        notify_owner(update, context, str(e))
         if str(e) == "Invalid YouTube link":
             context.bot.send_message(
                     chat_id=update.effective_chat.id,
@@ -74,6 +73,7 @@ def send_msg(update: Update, context: CallbackContext):
                     parse_mode=ParseMode.HTML,
         ) 
         else:
+            notify_owner(update, context, str(e))
             context.bot.send_message(
                         chat_id=update.effective_chat.id,
                         text=
