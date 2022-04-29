@@ -48,7 +48,8 @@ def music(update: Update, context: CallbackContext):
         )
 
 def notify_owner(update: Update, context: CallbackContext, err: str):
-    msg = f'User @{update.effective_user.username} has tried downloading music, but got an error:\n\n{err}'
+    user_ref = update.effective_user.username or update.effective_user.full_name
+    msg = f'User @{user_ref} has tried downloading music, but got an error:\n\n{err}'
     context.bot.send_message(
             chat_id=OWNER_CHAT_ID,
             text=msg,
