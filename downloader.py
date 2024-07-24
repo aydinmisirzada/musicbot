@@ -1,5 +1,5 @@
 import pathlib
-from pytube import YouTube
+from pytubefix import YouTube
 import re
 
 class Downloader:
@@ -14,7 +14,7 @@ class Downloader:
         yt = YouTube(src)
         if yt is None:
             raise Exception("The audio can't be found")
-        self.song = yt.streams.filter(only_audio=True).first().download()
+        self.song = yt.streams.filter(only_audio=True).first().download(mp3=True)
         self.title = yt.title or self.title
         self.author = yt.author or self.author
         if self.song is None:

@@ -1,5 +1,4 @@
-import pathlib
-from pytube import YouTube
+from pytubefix import YouTube
 src = "https://youtube.com/watch?v=mkmWERwd_KE"
 
 yt = YouTube(src)
