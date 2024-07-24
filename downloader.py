@@ -1,3 +1,4 @@
+import pathlib
 from pytube import YouTube
 import re
 
@@ -7,7 +8,9 @@ class Downloader:
     author = "Unknown Author"
 
     def __init__(self,src):
+        print('Checking if the link is a YouTube link...')
         self.check_if_youtube(src)
+        print('Downloading...')
         yt = YouTube(src)
         if yt is None:
             raise Exception("The audio can't be found")
@@ -17,6 +20,12 @@ class Downloader:
         if self.song is None:
             raise Exception("The audio can't be downloaded")
         self.extract_author_n_title()
+        print('Downloaded')
+
+    def delete_downloaded_file(self):
+        if self.song:
+            file_to_rem = pathlib.Path(self.song)
+            file_to_rem.unlink()
 
  
     def extract_author_n_title(self):

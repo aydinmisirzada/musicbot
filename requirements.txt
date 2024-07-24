@@ -1,2 +1,3 @@
 python-telegram-bot
-git+https://github.com/aydinmisirzada/pytube
+python-dotenv
+git+https://github.com/an-dutra/pytube.git@patch-1
