@@ -11,7 +11,7 @@ class Downloader:
         print('Checking if the link is a YouTube link...')
         self.check_if_youtube(src)
         print('Downloading...')
-        yt = YouTube(src)
+        yt = YouTube(src, use_oauth=True, allow_oauth_cache=True)
         if yt is None:
             raise Exception("The audio can't be found")
         self.song = yt.streams.filter(only_audio=True).first().download(mp3=True)
